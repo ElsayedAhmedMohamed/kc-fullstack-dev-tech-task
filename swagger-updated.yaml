@@ -1,0 +1,371 @@
+openapi: 3.0.0
+info:
+  title: Category API
+  description: API for managing categories with additional metadata
+  version: 1.0.0
+paths:
+  /categories:
+    get:
+      summary: Get all categories
+      description: Retrieves a list of all categories with additional metadata like subcategories and course count
+      responses:
+        200:
+          description: A list of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: The ID of the category
+                    parent_id:
+                      type: string
+                      description: The parent ID of the category (if applicable)
+                    name:
+                      type: string
+                      description: The name of the category
+                    description:
+                      type: string
+                      description: The description of the category
+                    count_of_courses:
+                      type: integer
+                      description: The number of courses in this category
+                    subcategories:
+                      type: array
+                      description: List of subcategories for this category
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            description: The ID of the subcategory
+                          name:
+                            type: string
+                            description: The name of the subcategory
+                    created_at:
+                      type: string
+                      format: date-time
+                      description: The timestamp when the category was created
+                    updated_at:
+                      type: string
+                      format: date-time
+                      description: The timestamp when the category was last updated
+
+    post:
+      summary: Create a new category
+      description: Creates a new category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                parent_id:
+                  type: string
+                  description: The parent ID of the new category (if applicable)
+                name:
+                  type: string
+                  description: The name of the new category
+                description:
+                  type: string
+                  description: The description of the new category
+              required:
+                - name
+      responses:
+        201:
+          description: Category created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The ID of the newly created category
+                  parent_id:
+                    type: string
+                    description: The parent ID of the newly created category (if applicable)
+                  name:
+                    type: string
+                    description: The name of the newly created category
+                  description:
+                    type: string
+                    description: The description of the newly created category
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: The timestamp when the category was created
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: The timestamp when the category was last updated
+
+  /categories/{id}:
+    get:
+      summary: Get a category by ID
+      description: Retrieves a category by its ID, including additional metadata like subcategories and course count
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the category to retrieve
+          schema:
+            type: string
+      responses:
+        200:
+          description: A category object with additional metadata
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The ID of the category
+                  parent_id:
+                    type: string
+                    description: The parent ID of the category (if applicable)
+                  name:
+                    type: string
+                    description: The name of the category
+                  description:
+                    type: string
+                    description: The description of the category
+                  count_of_courses:
+                    type: integer
+                    description: The number of courses in this category
+                  subcategories:
+                    type: array
+                    description: List of subcategories for this category
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: The ID of the subcategory
+                        name:
+                          type: string
+                          description: The name of the subcategory
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: The timestamp when the category was created
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: The timestamp when the category was last updated
+        404:
+          description: Category not found
+
+    put:
+      summary: Update a category
+      description: Updates an existing category by its ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the category to update
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                parent_id:
+                  type: string
+                  description: The parent ID of the updated category (if applicable)
+                name:
+                  type: string
+                  description: The new name of the category
+                description:
+                  type: string
+                  description: The new description of the category
+              required:
+                - name
+      responses:
+        200:
+          description: Category updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The ID of the updated category
+                  parent_id:
+                    type: string
+                    description: The parent ID of the updated category (if applicable)
+                  name:
+                    type: string
+                    description: The name of the updated category
+                  description:
+                    type: string
+                    description: The updated description of the category
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: The timestamp when the category was created
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: The timestamp when the category was last updated
+        404:
+          description: Category not found
+
+    delete:
+      summary: Delete a category
+      description: Deletes a category by its ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the category to delete
+          schema:
+            type: string
+      responses:
+        204:
+          description: Category deleted successfully
+        404:
+          description: Category not found
+  /courses:
+    get:
+      summary: Get all courses
+      description: Retrieve a list of all courses
+      responses:
+        200:
+          description: A list of courses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Course'
+    post:
+      summary: Create a new course
+      description: Create a course with details like name, description, image, and category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseInput'
+      responses:
+        201:
+          description: Course created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+
+  /courses/{id}:
+    get:
+      summary: Get a course by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: A course object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        404:
+          description: Course not found
+
+    put:
+      summary: Update a course by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CourseInput'
+      responses:
+        200:
+          description: Course updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        404:
+          description: Course not found
+
+    delete:
+      summary: Delete a course by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: Course deleted successfully
+        404:
+          description: Course not found
+
+components:
+  schemas:
+    Course:
+      type: object
+      properties:
+        id:
+          type: string
+        parent_id:
+          type: string
+          nullable: true
+        name:
+          type: string
+        description:
+          type: string
+        image_preview:
+          type: string
+          format: uri
+        category_id:
+          type: string
+        main_category_name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    CourseInput:
+      type: object
+      properties:
+        parent_id:
+          type: string
+          nullable: true
+        name:
+          type: string
+        description:
+          type: string
+        image_preview:
+          type: string
+          format: uri
+        category_id:
+          type: string
+      required:
+        - name
+        - description
+        - category_id

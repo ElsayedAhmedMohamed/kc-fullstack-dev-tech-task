@@ -1,0 +1,18 @@
+body {
+    background: #fff;
+    color: #666666;
+    text-align: start;
+    margin-top: 200px;
+}
+
+
+a {
+    color: #ab8634;
+    transition: 0.5s;
+}
+
+.container{
+	width: 80%;
+	margin:0 auto;
+	display: flex;
+}

@@ -1,0 +1,97 @@
+body {
+    background: #dedddd;
+    color: #343434;
+    margin-top: 50px;
+	font-family: arial;
+}
+
+.page-title{
+	text-align:center;
+	font-weight:bold;
+}
+
+.container{
+	margin:0 auto;
+	display: flex;
+}
+
+.categories-list{
+	list-style: none;
+}
+
+.categories-list li{
+	margin-bottom:10px;
+}
+
+.categories-list a{
+	color: #343434;
+	text-decoration:none;
+}
+
+.sub-category{
+	margin-left:20px;
+}
+
+.categories{
+	width:25%;
+}
+
+.courses{
+	padding:10px;
+	width:75%;
+}
+
+.course{
+	width:30%;
+	float: left;
+	margin: 10px;
+	margin-bottom: 20px;
+	background: #fff;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	position: relative;
+	box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.course-img img{
+	height: 200px;
+	width: 100%;
+	border-radius:10px 10px 0px 0px;
+}
+
+.category-label{
+	z-index: 999;
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	padding: 5px;
+    background:#ffffffde;
+	border-radius:5px;
+	font-weight: bold;
+	font-size: 13px;
+	box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+
+.course-info{
+	padding:0px 15px;
+	height: 55px;
+	overflow:hidden;
+}
+
+.course-info h2{
+	margin-top:5px;
+	margin-bottom:0px;
+	font-size:15px;
+	font-weight:bold;
+}
+
+.course-info p{
+	margin:0px;
+	font-size:13px;
+	font-weight:bold;
+}
+
+.hidden{
+	display:none;
+}
