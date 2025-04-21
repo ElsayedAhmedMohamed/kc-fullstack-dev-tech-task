@@ -10,7 +10,7 @@ require_once __DIR__ . '/CourseController.php';
 // Basic routing
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
-$resource = $uri[4] ?? null;
+$resource = $uri[0] ?? null;
 $id = isset($uri[1]) ? (int) $uri[1] : null;
 
 switch ($resource) {
